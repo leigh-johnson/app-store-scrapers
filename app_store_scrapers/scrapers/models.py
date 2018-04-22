@@ -4,7 +4,6 @@ from django.db import models
 
 class Keyword(models.Model):
     text = models.CharField(max_length=250, unique=True)
-    parent = models.ForeignKey('self')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -15,7 +14,7 @@ class IOSCategory(models.Model):
     parent = models.ForeignKey('self')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    
+
 
 class IOSDeveloper(models.Model):
     store_id = models.IntegerField(unique=True)
