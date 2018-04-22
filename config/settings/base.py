@@ -68,7 +68,8 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',
     'rest_framework',
     'django_celery_results',
-    'django_celery_beat'
+    'django_celery_beat',
+    'django_elasticsearch_dsl'
 ]
 LOCAL_APPS = [
     'app_store_scrapers.users.apps.UsersConfig',
