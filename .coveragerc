@@ -1,0 +1,5 @@
+[run]
+include = app_store_scrapers/*
+omit = *migrations*, *tests*
+plugins =
+    django_coverage_plugin
