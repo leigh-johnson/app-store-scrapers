@@ -71,6 +71,7 @@ CELERY_ALWAYS_EAGER = True
 # https://github.com/sabricot/django-elasticsearch-dsl
 ELASTICSEARCH_DSL={
     'default': {
-        'hosts': 'localhost:9200'
+        'hosts': 'elasticsearch',
+        'sniff_on_start': True
     },
 }

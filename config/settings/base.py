@@ -73,7 +73,7 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     'app_store_scrapers.users.apps.UsersConfig',
-    # Your stuff: custom apps go here
+    'app_store_scrapers.scrapers'
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

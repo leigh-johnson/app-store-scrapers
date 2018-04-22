@@ -19,6 +19,10 @@ urlpatterns = [
         r"^users/",
         include("app_store_scrapers.users.urls", namespace="users"),
     ),
+    url(
+        r"^keywords/",
+        include("app_store_scrapers.scrapers.urls", namespace="scrapers")
+    ),
     url(r"^accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(

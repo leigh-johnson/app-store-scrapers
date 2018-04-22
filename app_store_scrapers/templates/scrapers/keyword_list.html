@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<a href="{% url 'scrapers:keyword_create' %}">
+  <button>
+    Add a keyword
+  </button>
+</a>
+
+{% endblock content %}
