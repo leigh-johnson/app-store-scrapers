@@ -4,8 +4,11 @@ volumes:
   postgres_data_local: {}
   postgres_backup_local: {}
 
+
 services:
   django: &django
+    stdin_open: true
+    tty: true
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
