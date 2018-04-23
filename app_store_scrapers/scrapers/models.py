@@ -1,23 +1,26 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
-# Create your models here.
-
+ 
 class Keyword(models.Model):
     text = models.CharField(max_length=250, unique=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+class IOSKeywordObservation(models.Model):
+    keyword_id = models.ForeignKey(Keyword, on_delete=models.CASCADE)
+    popularity: = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
 
 class IOSCategory(models.Model):
     name = models.CharField(max_length=30)
-    store_id = models.IntegerField(unique=True)
-    parent = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    app_store_id = models.IntegerField(unique=True)
+    parent_id = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
 
 
 class IOSDeveloper(models.Model):
-    store_id = models.IntegerField(unique=True)
+    app_store_id = models.IntegerField(unique=True)
     name = models.CharField(max_length=250)
     store_url = models.CharField(max_length=250)
     site_url = models.CharField(max_length=250)
@@ -27,7 +30,7 @@ class IOSDeveloper(models.Model):
     @staticmethod
     def api_mapping():
         return {
-            'store_id': 'artistId',
+            'app_store_id': 'artistId',
             'name': 'sellerName',
             'store_url': 'artistViewUrl',
             'site_url': 'sellerUrl'
@@ -38,7 +41,7 @@ class IOSApp(models.Model):
     name = models.CharField(max_length=56)
     platform = models.CharField(max_length=10)
     minimum_os_version = models.CharField(max_length=4)
-    developer = models.ForeignKey(IOSDeveloper, on_delete=models.CASCADE)
+    developer_id = models.ForeignKey(IOSDeveloper, on_delete=models.CASCADE)
 
     store_id = models.IntegerField(unique=True)
 
@@ -88,8 +91,8 @@ class IOSAppObservation(models.Model):
     ranking = models.IntegerField()
 
 
-    app = models.ForeignKey(IOSApp, on_delete=models.CASCADE)
-    keyword_search = models.ForeignKey(Keyword, on_delete=models.CASCADE)
+    ios_app_id = models.ForeignKey(IOSApp, on_delete=models.CASCADE)
+    keyword_id = models.ForeignKey(Keyword, on_delete=models.CASCADE)
     screenshot_urls = ArrayField(models.CharField(max_length=256))
     created = models.DateTimeField(auto_now_add=True)
 
