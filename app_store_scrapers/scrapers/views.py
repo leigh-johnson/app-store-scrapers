@@ -60,6 +60,8 @@ class KeywordPopularyScrapeView(View):
             'Accept-Language': 'en-US,en;q=0.9',
         }
 
+        res = request.get(url, params=query, headers=headers)
+
 
 
 
