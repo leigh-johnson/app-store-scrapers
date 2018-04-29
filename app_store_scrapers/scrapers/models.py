@@ -8,7 +8,7 @@ class Keyword(models.Model):
 
 class IOSKeywordObservation(models.Model):
     keyword_id = models.ForeignKey(Keyword, on_delete=models.CASCADE)
-    popularity: = models.FloatField()
+    popularity = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -97,7 +97,7 @@ class IOSAppObservation(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('created', 'app')
+        unique_together = ('created', 'ios_app_id')
 
     @staticmethod
     def api_mapping():
