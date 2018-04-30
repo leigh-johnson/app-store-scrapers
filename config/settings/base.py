@@ -253,5 +253,11 @@ ACCOUNT_ADAPTER = 'app_store_scrapers.users.adapters.AccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'app_store_scrapers.users.adapters.SocialAccountAdapter'
 
 
-# Your stuff...
+# Appium device settings
 # ------------------------------------------------------------------------------
+
+SCRAPER_DEVICE_UDID = env('SCRAPER_DEVICE_UDID')
+SCRAPER_DEVELOPER_TEAM = env('SCRAPER_DEVELOPER_TEAM')
+SCRAPER_DEVELOPER_TEAM_ID = env('SCRAPER_DEVELOPER_TEAM_ID')
+APPIUM_SERVER = env('APPIUM_SERVER')
+

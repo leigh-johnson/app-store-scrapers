@@ -25,4 +25,8 @@ django_celery_beat==1.1.1
 djangorestframework==3.8.2  # https://github.com/encode/django-rest-framework
 coreapi==2.3.3  # https://github.com/core-api/python-client
 
+# Appium
+Appium-Python-Client==0.14.0
 
+# Selenium
+selenium==3.11.0
