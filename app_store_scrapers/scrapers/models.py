@@ -1,12 +1,17 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+
+class Credential(models.Model):
+    pass
+
+
  
 class Keyword(models.Model):
     text = models.CharField(max_length=250, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-class IOSKeywordObservation(models.Model):
+class IOSKeywordPopularityObservation(models.Model):
     keyword_id = models.ForeignKey(Keyword, on_delete=models.CASCADE)
     popularity = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
@@ -78,6 +83,9 @@ class IOSApp(models.Model):
         }
 
 class IOSAppObservation(models.Model):
+    '''
+
+    '''
 
     description = models.TextField()
     release_date = models.DateField()
