@@ -1,11 +1,12 @@
-
+# Python
 import os
+# Lib
+from appium import webdriver
+import selenium.webdriver.common.keys as keys
 from celery import Celery
 from celery.schedules import crontab
 from django.apps import apps, AppConfig
 from django.conf import settings
-
-
 
 if not settings.configured:
     # set the default Django settings module for the 'celery' program.
@@ -46,6 +47,46 @@ def debug_task(self):
 @app.task
 def test(arg):
     print(arg)
+
+@app.task
+def appium_scrape_trending_keywords():
+    '''
+    xpaths:
+    https://trello.com/c/wXtZ4tZT/1-app-store-xpath-selectors
+    '''
+    desired_capabilities={
+        'bundleId': 'com.apple.AppStore',
+        'platformName': 'iOS',
+        'platformVersion': '11.3',
+        'deviceName': 'iPhone 6',
+        'udid': settings.SCRAPER_DEVICE_UDID,
+        'xcodeOrgId': settings.SCRAPER_DEVELOPER_TEAM_ID,
+        'xcodeSigningId': 'iPhone Developer',
+        'updatedWDABundleId': settings.SCRAPER_DEVELOPER_TEAM
+    }
+    driver = webdriver.Remote(
+        f'{settings.APPIUM_SERVER}/wd/hub',
+        desired_capabilities)
+
+    search_button = driver.find_element_by_id('Search').click();
+
+    search_bar = driver.find_element_by_class_name('XCUIElementTypeSearchField').sendKeys(keys.ENTER);
+
+    Keyword = apps.get_model('scrapers', 'Keyword')
+
+    keywords = []
+    for idx in range (2, 7):
+        xpath = f'//XCUIElementTypeApplication[@name="App Store"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[{idx}]'
+        el = driver.find_element_by_xpath(xpath)
+        keyword_str = el.get_attribute('name')
+
+        keyword, created = Keyword.objects.get_or_create(text='text')
+        keywords.append(keyword)
+
+    print(keywords)
+
+
+
 
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
