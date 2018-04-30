@@ -53,3 +53,14 @@ EMAIL_PORT = 1025
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+# elastic search
+# https://github.com/sabricot/django-elasticsearch-dsl
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'elasticsearch',
+        'sniff_on_start': True
+    },
+}
+
+

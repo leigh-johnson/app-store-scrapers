@@ -17,6 +17,7 @@ services:
       - postgres
       - mailhog
       - elasticsearch
+      - appium
     volumes:
       - .:/app
     env_file:
@@ -34,6 +35,14 @@ services:
       - 9300:9300
     environment:
       discovery.type: single-node
+
+  appium:
+    build:
+      context: .
+      dockerfile: ./compose/local/appium/Dockerfile
+    image: app_store_scrapers_production_appium
+    ports:
+      - "4723:4723"
 
   postgres:
     build:
